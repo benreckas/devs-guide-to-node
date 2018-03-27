@@ -1,34 +1,34 @@
-const request = require('request');
-const yargs = require('yargs');
+const request = require( 'request' );
+const yargs = require( 'yargs' );
 
 const argv = yargs
-  .options({
-      a: {
-        demand: true,
-        alias: 'address',
-        describe: 'Address to fetch weather',
-        string: true
-      }
-  })
+  .options( {
+    a: {
+      demand: true,
+      alias: 'address',
+      describe: 'Address to fetch weather',
+      string: true
+    }
+  } )
   .help()
-  .alias('help', 'h')
+  .alias( 'help', 'h' )
   .argv;
 
-  const encodedAddress = encodeURIComponent(argv.address);
+const encodedAddress = encodeURIComponent( argv.address );
 
-request({
+request( {
   url: `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}`,
   json: true
-}, async (err, res) => {
+}, async ( err, res ) => {
   try {
-    if(res.statusCode === 200) {
-      console.log(`Address: ${res.body.results[0].formatted_address}`)
-      console.log(`Lat: ${res.body.results[0].geometry.location.lat}`)
-      console.log(`Lng: ${res.body.results[0].geometry.location.lng}`)
+    if ( res.statusCode === 200 ) {
+      console.log( `Address: ${res.body.results[0].formatted_address}` )
+      console.log( `Lat: ${res.body.results[0].geometry.location.lat}` )
+      console.log( `Lng: ${res.body.results[0].geometry.location.lng}` )
     }
   } catch ( err ) {
-    console.log('Invalid Address')
+    console.log( 'Invalid Address' )
   }
 
   // console.log(JSON.stringify(res, undefined, 2));
-});
+} );
